@@ -9,3 +9,5 @@ Currently, only for:
 Requires:
 
   - GLEW 2.1.0
+
+Provided a Code::Blocks project where glew header files are supposed to be in the path "../dependencies/glew-2.1.0"
