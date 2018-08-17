@@ -24,9 +24,6 @@
 
 #include <vector>
 
-#define GLEW_STATIC
-#include <GL/glew.h>
-
 
 using namespace glo2;
 
