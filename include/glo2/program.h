@@ -25,10 +25,12 @@
 
 #include <string>
 
+#define GLEW_STATIC
+#include <GL/glew.h>
+
 #include "glo2/shader.h"
 
 namespace glo2 {
-
   class Program
   {
   public:
@@ -51,8 +53,8 @@ namespace glo2 {
     void releaseProgram() const;
 
   protected:
-    GLuint  _programID  {0};
-    bool    _isLinked   {false};
+    GLuint   _programID  {0};
+    bool     _isLinked   {false};
 
   };
 
