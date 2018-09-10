@@ -39,9 +39,9 @@ namespace glo2 {
       Shader(const Shader &other) = delete;
       Shader& operator=(const Shader &other) = delete;
 
-      void loadSource(const std::string &shader_file) throw(std::string);
+      void loadSource(const std::string &shader_file);
 
-      void loadSource(const char *shader_str) throw(std::string);
+      void loadSource(const char *shader_str);
 
       GLuint id() const;
 

@@ -42,7 +42,7 @@ namespace glo2 {
 
     void attachShader(Shader &aShader);
 
-    void linkProgram() throw(std::string);
+    void linkProgram();
 
     GLuint id() const;
 
