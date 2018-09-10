@@ -27,48 +27,48 @@
 
 using namespace glo2;
 
-Program::Program(){
+Program::Program() {
   _programID = glCreateProgram();
 }
 
 
-Program::~Program(){
+Program::~Program() {
   glDeleteProgram(_programID);
 }
 
 
-void Program::attachShader(Shader &a_shader){
+void Program::attachShader(Shader &a_shader) {
   glAttachShader(_programID, a_shader.id());
 }
 
 
-void Program::linkProgram() throw(std::string){
+void Program::linkProgram() {
   glLinkProgram(_programID);
 
-	// Check the program
-	GLint result{ GL_FALSE };
-	int info_log_length;
-	glGetProgramiv(_programID, GL_LINK_STATUS, &result);
-	glGetProgramiv(_programID, GL_INFO_LOG_LENGTH, &info_log_length);
-	if (info_log_length > 0) {
-		std::vector<char> error_message(info_log_length + 1);
-		glGetProgramInfoLog(_programID, info_log_length, NULL, &error_message[0]);
+  // Check the program
+  GLint result { GL_FALSE };
+  int info_log_length {0};
+  glGetProgramiv(_programID, GL_LINK_STATUS, &result);
+  glGetProgramiv(_programID, GL_INFO_LOG_LENGTH, &info_log_length);
+  if (info_log_length > 0) {
+    std::vector<char> error_message(info_log_length + 1);
+    glGetProgramInfoLog(_programID, info_log_length, NULL, &error_message[0]);
 
-		if (result == GL_FALSE) {
+    if (result == GL_FALSE) {
       throw std::string("Error while linking programm.\Error: ") + std::string(&error_message[0]);
     }
-	}
+  }
 
-	_isLinked = true;
+  _isLinked = true;
 
-	// Detach shaders
-	GLint shaders_count;
-	glGetProgramiv(_programID, GL_ATTACHED_SHADERS, &shaders_count);
-	std::vector<GLuint> shader_ids(shaders_count);
+  // Detach shaders
+  GLint shaders_count {0};
+  glGetProgramiv(_programID, GL_ATTACHED_SHADERS, &shaders_count);
+  std::vector<GLuint> shader_ids(shaders_count);
   glGetAttachedShaders(_programID, shaders_count, &shaders_count, &shader_ids[0]);
-	for (auto shader : shader_ids) {
-		glDetachShader(_programID, shader);
-	}
+  for (auto shader : shader_ids) {
+    glDetachShader(_programID, shader);
+  }
 }
 
 GLuint Program::id() const{

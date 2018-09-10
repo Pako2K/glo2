@@ -39,14 +39,15 @@ GLuint Shader::id() const {
   return _shaderID;
 }
 
-void Shader::loadSource(const std::string &shader_file) throw(std::string) {
+void Shader::loadSource(const std::string &shader_file) {
   // Read the shader code from the file
   std::string shader_code;
-  std::ifstream shader_stream (shader_file, std::ios::in);
+  std::ifstream shader_stream(shader_file, std::ios::in);
   if (shader_stream.is_open()) {
     std::string line = "";
-    while (getline(shader_stream, line))
+    while (getline(shader_stream, line)) {
       shader_code += "\n" + line;
+    }
     shader_stream.close();
   }
   else {
@@ -56,13 +57,13 @@ void Shader::loadSource(const std::string &shader_file) throw(std::string) {
   loadSource(shader_code.c_str());
 }
 
-void Shader::loadSource(const char *shader_str) throw(std::string) {
+void Shader::loadSource(const char *shader_str) {
   glShaderSource(_shaderID, 1, &shader_str, NULL);
   glCompileShader(_shaderID);
 
   // Check Shader
   GLint result{ GL_FALSE };
-  int info_log_length;
+  int info_log_length {0};
   glGetShaderiv(_shaderID, GL_COMPILE_STATUS, &result);
   glGetShaderiv(_shaderID, GL_INFO_LOG_LENGTH, &info_log_length);
   if (info_log_length > 0) {
